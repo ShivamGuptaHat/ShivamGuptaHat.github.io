@@ -1,64 +1,56 @@
-<!DOCTYPE HTML>
 <html>
 
 <head>
-    <title>Developer Corner</title>
-    <meta name="description" content="website description" />
-    <meta name="keywords" content="website keywords, website keywords" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <!-- modernizr enables HTML5 elements and feature detects -->
-    <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        
+        th,
+        td {
+            padding: 5px;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="main">
-        <header>
-            <div id="logo">
-                <h1>Developer<a href="#">Corner</a></h1>
-            </div>
-            <nav>
-                <ul class="lavaLampWithImage" id="lava_menu">
-                    <li class="current"><a href="index.html">home</a></li>
-                    <li><a href="about.html">about me</a></li>
-                    <li><a href="contact.html">contact</a></li>
-                </ul>
-            </nav>
-        </header>
-        <div id="site_content">
-            <div id="sidebar_container">
-                <div class="gallery">
-                    <ul class="images">
-                        <li class="show"><img width="450" height="450" src="images/1.jpg" alt="photo_one" /></li>
-                        <li><img width="450" height="450" src="images/2.jpg" alt="photo_two" /></li>
-                        <li><img width="450" height="450" src="images/3.jpg" alt="photo_three" /></li>
-                    </ul>
-                </div>
-            </div>
-            <div id="content">
-                <h1>Welcome To Developer Corner</h1>
-                <p>Developer corner is group of java developer's. We are currently making android development and web 		development tutorials which might be helpful for those who want to learn these developement. </p>
 
-            </div>
-        </div>
-        <footer>
-            <p><a href="index.html">home</a> | <a href="about.html">about me</a> | <a href="contact.html">contact</a></p>
-            <p>&copy; 2016 developer corner All Rights Reserved.</p>
-        </footer>
-    </div>
-    <!-- javascript at the bottom for fast page loading -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.easing.min.js"></script>
-    <script type="text/javascript" src="js/jquery.lavalamp.min.js"></script>
-    <script type="text/javascript" src="js/image_fade.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            $("#lava_menu").lavaLamp({
-                fx: "backout",
-                speed: 700
-            });
-        });
+    <table id="demo"></table>
+    <button onclick="loadXMLDoc()" type="button">
+        Show CD Data
+    </button>
+
+    <script>
+        function loadXMLDoc() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    myFunction(this);
+                }
+            };
+            xmlhttp.open("GET", "cd_catalog.xml", true);
+            xmlhttp.send();
+        }
+
+        function myFunction(xml) {
+            var i;
+            var xmlDoc = xml.responseXML;
+            var table = "<tr><th>Artist</th><th>Title</th></tr>";
+            var x = xmlDoc.getElementsByTagName("CD");
+            for (i = 0; i < x.length; i++) {
+                table += "<tr><td>" +
+                    x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue +
+                    "</td><td>" +
+                    x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
+                    "</td></tr>";
+            }
+            document.getElementById("demo").innerHTML = table;
+        }
     </script>
+
 </body>
 
 </html>
