@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Developer Corner</title>
+    <title>DeveloperCorner</title>
     <meta name="description" content="website description" />
     <meta name="keywords" content="website keywords, website keywords" />
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -19,15 +19,16 @@
             </div>
             <nav>
                 <ul class="lavaLampWithImage" id="lava_menu">
-                    <li class="current"><a href="index.html">home</a></li>
+                    <li><a href="index.html">home</a></li>
                     <li><a href="about.html">about me</a></li>
-                    <li><a href="contact.html">contact</a></li>
+
+                    <li class="current"><a href="contact.html">contact</a></li>
                 </ul>
             </nav>
         </header>
         <div id="site_content">
             <div id="sidebar_container">
-                <div class="gallery">
+                <div id="gallery">
                     <ul class="images">
                         <li class="show"><img width="450" height="450" src="images/1.jpg" alt="photo_one" /></li>
                         <li><img width="450" height="450" src="images/2.jpg" alt="photo_two" /></li>
@@ -36,9 +37,17 @@
                 </div>
             </div>
             <div id="content">
-                <h1>Welcome To Developer Corner</h1>
-                <p>Developer corner is group of java developer's. We are currently making android development and web 		development tutorials which might be helpful for those who want to learn these developement. </p>
-
+                <h1>Contact</h1>
+                <p>Hello Friends,<br> You can contact with through email and my email id is shivam.guptaome@gmail.com and my mobile number is 8510049650.
+                </p>
+                <form id="contact" action="contact.html" method="post">
+                    <div class="form_settings">
+                        <p><span>Name</span><input class="contact" type="text" name="your_name" value="" /></p>
+                        <p><span>Email Address</span><input class="contact" type="text" name="your_email" value="" /></p>
+                        <p><span>Message</span><textarea class="contact textarea" rows="5" cols="50" name="your_message"></textarea></p>
+                        <p style="padding-top: 15px"><span>&nbsp;</span><input class="submit" type="submit" name="contact_submitted" value="send" /></p>
+                    </div>
+                </form>
             </div>
         </div>
         <footer>
