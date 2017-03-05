@@ -1,64 +1,217 @@
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>Developer Corner</title>
-    <meta name="description" content="website description" />
-    <meta name="keywords" content="website keywords, website keywords" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-    <!-- modernizr enables HTML5 elements and feature detects -->
-    <script type="text/javascript" src="js/modernizr-1.5.min.js"></script>
+    <meta charset="utf-8">
+    <title>Code Helper</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" media="screen">
 </head>
 
 <body>
-    <div id="main">
-        <header>
-            <div id="logo">
-                <h1>Developer<a href="#">Corner</a></h1>
-            </div>
-            <nav>
-                <ul class="lavaLampWithImage" id="lava_menu">
-                    <li class="current"><a href="index.html">home</a></li>
-                    <li><a href="about.html">about me</a></li>
-                    <li><a href="contact.html">contact</a></li>
-                </ul>
-            </nav>
-        </header>
-        <div id="site_content">
-            <div id="sidebar_container">
-                <div class="gallery">
-                    <ul class="images">
-                        <li class="show"><img width="450" height="450" src="images/1.jpg" alt="photo_one" /></li>
-                        <li><img width="450" height="450" src="images/2.jpg" alt="photo_two" /></li>
-                        <li><img width="450" height="450" src="images/3.jpg" alt="photo_three" /></li>
-                    </ul>
-                </div>
-            </div>
-            <div id="content">
-                <h1>Welcome To Developer Corner</h1>
-                <p>Developer corner is group of java developer's. We are currently making android development and web 		development tutorials which might be helpful for those who want to learn these developement. </p>
 
-            </div>
-        </div>
-        <footer>
-            <p><a href="index.html">home</a> | <a href="about.html">about me</a> | <a href="contact.html">contact</a></p>
-            <p>&copy; 2016 developer corner All Rights Reserved.</p>
-        </footer>
-    </div>
-    <!-- javascript at the bottom for fast page loading -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script type="text/javascript" src="js/jquery.easing.min.js"></script>
-    <script type="text/javascript" src="js/jquery.lavalamp.min.js"></script>
-    <script type="text/javascript" src="js/image_fade.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            $("#lava_menu").lavaLamp({
-                fx: "backout",
-                speed: 700
-            });
-        });
-    </script>
+    <header>
+
+        <hgroup>
+            <h1>Coder Helper</h1>
+            <h2>Advanced data structure and algorithms</h2>
+        </hgroup>
+
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+
+    </header>
+    <strong>
+    <section>
+        <h2>Hello and welcome to my page.</h2>
+        <p>This is code for first and follow as you studied it in compiler design. But code for first and follow is not easy it's require some recursive approach which might not be easy for everyone that's why i'm with complete first and follow program.
+            This program would provide corrent result for each and every grammar.
+            <pre>
+            <code>
+              
+import java.util.*;
+class Solution{
+    public static void main(String[] args){
+
+        String grammar = "S->ABCDE, A->a|(-, B->b|(-, C->c, D->d|(-, E->e|(-";
+        findFollow(grammar);
+        System.out.println("Variable\tFirst() \t\t\t Variable \t Follow()");
+        for(String key : productionTable.keySet()){
+            System.out.printf("%5s %19s",key,firstTable.get(key));
+            System.out.printf("\t\t\t%5s %20s\n",key,followTable.get(key));
+        }
+    }
+
+    private static LinkedHashMap<String, List<String>> productionTable = new LinkedHashMap<>();
+    private static LinkedHashMap<String, Set<String>> firstTable = new LinkedHashMap<>();
+    private static LinkedHashMap<String, Set<String>> followTable = new LinkedHashMap<>();
+    private static String startSymbol = "S";
+
+    public static void findFirst(String grammar){
+        String[] productions = grammar.split(", ");
+        List<String> row1 = new ArrayList<>();
+        for(int j=0; j<productions.length; j++){
+            String[] leftAndRight = productions[j].split("->");
+            String[] right = leftAndRight[1].split("\\|");
+            for(String val : right){
+                row1.add(val.trim());
+            }
+            productionTable.put(leftAndRight[0],new ArrayList(row1));
+            row1.clear();
+        }
+
+        Set<String> basket = new HashSet<String>();
+        for(String key : productionTable.keySet()){
+            List<String> row = productionTable.get(key);
+            for(String value : row){
+                isNull = false;
+                value = value.trim();
+
+                if(value.charAt(0) >= 97 && value.charAt(0) <= 122){
+                    basket.add(String.valueOf(value.trim().charAt(0)));
+                }else if(value.equals("(-")){
+                    basket.add("(-");
+                }else if(value.charAt(0) >= 65 && value.charAt(0) <= 90){
+                    int index = 1;
+                    returnFirst(productionTable,String.valueOf(value.charAt(0)),basket);
+                        if(isNull && value.length() - 1 >= index && Character.isUpperCase(value.charAt(index))){
+                            while(isNull && value.length()-1>=index && Character.isUpperCase(value.charAt(index))){
+                            isNull = false;
+                            if(value.length()>index){
+                                basket.remove("(-");
+                                returnFirst(productionTable,String.valueOf(value.charAt(index)),basket);
+                                index++;
+                            }
+                        }
+                    }else if(value.length()>index && isNull && !Character.isUpperCase(value.charAt(index))){
+                        basket.add(String.valueOf(value.charAt(index)).trim());
+                    }
+                }
+            }
+            firstTable.put(key,new HashSet<String>(basket));
+            basket.clear();   
+        }
+    }
+    static boolean isNull = false;
+
+
+    private static void returnFirst(LinkedHashMap<String,List<String>> table,String start,Set basket){
+        for(String key : table.keySet()){
+            if(key.equals(start.trim())){
+                List<String> row = table.get(key);
+                for(String value : row){
+                    if(value.charAt(0)>=97 && value.charAt(0) <= 122){
+                        basket.add(String.valueOf(value.charAt(0)).trim());
+                    }else if(value.charAt(0) >= 65 && value.charAt(0) <= 90){
+                        returnFirst(table, String.valueOf(value.charAt(0)), basket);
+                    }else if(value.trim().equals("(-")){
+                        basket.add("(-");
+                        isNull = true;
+                    }
+                }
+            }
+        }   
+    }
+
+    public static void findFollow(String grammar){
+        findFirst(grammar);
+        Set<String> basket = new HashSet<>();
+        for(String pro : productionTable.keySet()){
+            followOf(pro, basket);
+            followTable.put(pro, new HashSet<String>(basket));
+            basket.clear();
+        }
+    }
+
+    private static void followOf(String var, Set<String> basket){
+        if(var.equals(startSymbol)){
+            basket.add("$");
+        }
+
+        for(String key : productionTable.keySet()){
+            List<String> list = productionTable.get(key);
+            Iterator<String> listIt = list.listIterator();
+            while(listIt.hasNext()){
+                String next = listIt.next();
+                if(next.contains(var)){
+                    int in = next.indexOf(var);
+                    if(next.indexOf(var) == next.length() - 1 && var != key){
+                        if(followTable.containsKey(key)){
+                            for(String val : followTable.get(key)){
+                                basket.add(val);
+                            }
+                        }else{
+                            followOf(key, basket);
+                        }
+                        
+                    }else if((in + 1) < next.length() && Character.isLowerCase(next.charAt(in + 1))){
+                        basket.add(String.valueOf(next.charAt(in + 1)));
+                        continue;
+                    }else if((in + 1) < next.length() && Character.isUpperCase(next.charAt(in + 1))){
+                        int index = next.indexOf(var) + 1;
+                            for(int i = index; i < next.length(); i++){
+                                if(i == next.length() - 1){
+                                    if(Character.isLowerCase(next.charAt(i))){
+                                        basket.add(String.valueOf(next.charAt(i)));
+                                    }else{
+                                        firstOf(Character.toString(next.charAt(i)), basket);
+                                        if(basket.contains("(-")){
+                                        basket.remove("(-");
+                                        followOf(key,basket);
+                                        }else{
+                                            
+                                            break;
+                                        }
+                                    }
+
+                                }else if(i < next.length() && Character.isUpperCase(next.charAt(i))){
+                                    firstOf(Character.toString(next.charAt(i)), basket);
+                                    if(basket.contains("(-")){
+                                        basket.remove("(-");
+                                        continue;
+                                    }else{
+                                        break;
+                                    }
+                                }else if(i < next.length() && Character.isLowerCase(next.charAt(i))){
+                                    basket.add(String.valueOf(next.charAt(i)));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    private static void firstOf(String pro, Set<String> basket){
+           Set<String> s = firstTable.get(pro);
+           for(String val : s){
+                basket.add(val);
+       } 
+    }
+}
+
+</code>
+            </pre>
+    </section>
+    </strong>
+    <footer>
+
+        <small>Copyright © 2012-2014 Bob Tabor</small>
+
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+
+    </footer>
 </body>
 
 </html>
