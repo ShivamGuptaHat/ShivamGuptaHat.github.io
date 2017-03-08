@@ -3,6 +3,10 @@
   background-color:#333333;
 }
 
+first,second{
+	font-family:Cooper Black;
+}
+
 header {
   width:80%;
   background-color:black;
